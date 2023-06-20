@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<body style="background-image: url(../static/pokemon-battle.png); background-repeat: no-repeat; background-position: top; background-size: 100% auto;">
+<h1></h1>
+<div class="register-div">
+    <h2 class="center-text" style="margin: 20px 0px;">Create an account</h2>
+    <form method="POST">
+        <!-- hidden tag required (from secret_tag in config and .env) to authenticate form -->
+        {{ register_form.hidden_tag() }}
+        <div style="width: 400px; margin: auto;">
+            {{ register_form.name(class='form-control mb-1', placeholder='Enter Your Trainer Name') }}
+            {{ register_form.username(class='form-control mb-1', placeholder='Username') }}
+            {{ register_form.email(class='form-control mb-1', placeholder='Email') }}
+            {{ register_form.password(class='form-control mb-1', placeholder='Password') }}
+            {{ register_form.confirm_password(class='form-control', placeholder='Confirm Password') }}
+            <br>
+        </div>
+        <!-- submit buttons don;t take a placeholder, they take on the variable name in forms.py -->
+        <div class="two-buttons-vertical-div">
+            {{ register_form.register(class='btn btn-primary') }}
+        </div>
+    </form>
+    <p class="center-text" style="margin: 5px 0px 0px 0px;"><u>Already have an account?</u></p>
+    <button class="btn btn-success" style="display: block; margin: auto; width:300px;" onclick="location.href='login'">Sign In</button>
+    
+</div>
+</body>
+{% endblock %}

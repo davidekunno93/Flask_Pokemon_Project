@@ -1,0 +1,66 @@
+Base html   
+    if current_user
+        nav bar = BRAND, home(here), pokedex, teams, battle .... 'user'(dropdown)>my account, my team, my battles, my friends | Logout
+    else
+        nav bar = BRAND
+
+    if current_user
+        footer = contact us
+
+Index html
+    Sign In | Sign Up
+
+
+Dashboard html (Home)
+    body = (banner)random pokemon picture and stats
+            leaderboards showing WDL 
+            my team
+            latest battle
+
+Pokedex_search html (pokedex)
+    Done 
+
+Teams html (teams)
+
+
+
+
+Pokemon_pull banner
+***First draft (shows pokemon name and picture. Shows HP, attack, defense, moves, ability, search more)***:
+<div class="big-rectangle-div" style="display: flex; flex-direction: row; border: 1px solid black; width: 80%; margin: auto; margin-top: 20px;">
+    <div class="img-box" style="flex: 1; display: flex; flex-direction: column; background-color: lightblue; align-items: center; text-align: center;">
+        <div class="row-rectangle" style="height: 9%;">
+            <p class="poketext" style="text-align: center;"> {{ pokemon.name }} </p>
+        </div>
+        <div class="row-rectangle" style="height: 89%;">
+            <span class="helper"></span><img class="v-line-img" src=" {{ pokemon.cartoon }} " style="margin: auto;">
+        </div>
+    </div>
+    <div class="stat-box" style="flex: 2; background-color: lightpink; display: flex; flex-direction: column;">
+        <div class="h-box" style="height: 75px; background-color: aquamarine; display: flex; justify-content: space-between;">
+            <div class="sb-1" style="background-color: beige; font-size: x-large;"><p class="poketext">HP: {{ pokemon.stats.hp }} </p></div>
+            <div class="sb-1" style="background-color: beige; font-size: x-large;"><p class="poketext">ATT: {{ pokemon.stats.attack }} </p></div>
+            <div class="sb-1" style="background-color: beige; font-size: x-large;"><p class="poketext">DEF: {{ pokemon.stats.defense }} </p></div>
+        </div>
+        <div style="display: flex; flex-direction: rows;">
+            <div style="display: flex; flex-direction: column; justify-content: space-between; background-color: blueviolet; flex: 1; height: 100%;">
+                <p class="poketext" style="font-size: medium; text-align: center;">Moves:</p>
+                {% for key, value in pokemon.moves.items() %}
+                <p class="poketext" style="font-size: medium;"> {{ key }} : {{ value }} </p>
+                {% endfor %}
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: space-between; background-color: yellowgreen; flex: 1; height: 100%;">
+                <p class="poketext" style="font-size: medium; text-align: center;">Ability:</p>
+                {% for key, value in pokemon.ability.items() %}
+                <p class="poketext" style="font-size: medium; margin-bottom: 5px;"> {{ key }} :  </p>
+                <p class="poketext" style="font-size: xx-small; margin-left: 20px;"> {{ value }} </p>
+                {% endfor %}
+            </div>
+        </div>
+        <div style="display: flex; flex-direction: column; justify-content:space-around;">
+            <button class="btn btn-light" onclick="location.href='search'" style="font-family: Ubuntu; width: 40%; display: block; margin: auto;">Search more Pokemon</button>
+        </div>
+    </div>
+</div>
+
+***Second draft (col[name, picture]. col[row1[HP, attack, defense]2[first 2 moves, second 2 moves]3[catch button, search button]])

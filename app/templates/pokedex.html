@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="poketext" style="text-align: center; margin: 50px auto;"> {{ pokemon.name }} stats: </h1>
+
+<div class="outer-div" style="width: 100%;">
+    <div class="relative" style="position: relative; width: 1293px; height: 977; margin: auto;">
+        <div id="name"
+            style="width: 220px; height: 40px; position: absolute; left: 360px; top: 150px; text-align: center;">
+            <p class="poketext" style="margin-top: 5px; font-size: 14px;"> {{ pokemon.name }} </p>
+        </div>
+        <div style="width: 120px; height: 25px; position: absolute; left: 120px; top: 203px;">
+            <p class="poketext"> HP: {{ pokemon.stats.hp }} </p>
+        </div>
+        <div style="width: 105px; height: 25px; position: absolute; left: 315px; top: 203px;">
+            <p class="poketext"> A: {{ pokemon.stats.attack }} </p>
+        </div>
+        <div style="width: 120px; height: 25px; position: absolute; left: 450px; top: 203px;">
+            <p class="poketext"> D: {{ pokemon.stats.defense }} </p>
+        </div>
+        
+        <div id="sprite" style="width: 385px; height: 220px; position: absolute; left: 130px; top: 280px;">
+            <img alt="sprite" style="height: 100%; display: block; margin: auto;" src=" {{ pokemon.sprite }} ">
+        </div>
+        <div id="abilities"
+            style="width: 460px; height: 295px; position: absolute; left: 760px; top: 220px; overflow: hidden;">
+            <h3 class="poketext">Abilities:</h3>
+            {% for key, value in pokemon.abilities.items() %}
+            <h5 class="poketext" style="margin: auto;"> {{ key }}: </h3>
+                <h6 class="poketext" style="margin-left: 10px;"> {{ value }} </h6>
+                <br>
+                {% endfor %}
+        </div>
+        <div id="moves"
+            style="background-color: white; width: 460px; height: 190px; position: absolute; left: 760px; top: 550px;">
+            <h3 class="poketext" style="margin-bottom: 15px;">Move list:</h3>
+            <div class="boxes" style="display: flex; flex-direction: row; width: 100%;">
+                <div class="leftbox" style="flex: 1;">
+                    {% for key, value in pokemon.moves.items() %}
+
+                        <h5 class="poketext"> {{ key }} </h5>
+
+                    {% endfor %}
+                
+                </div>
+                <div class="righbox" style="flex: 1;">
+                    {% for key, value in pokemon.moves.items() %}
+
+                    <h5 class="poketext"> :{{ value }} </h5>
+
+                    {% endfor %}
+                
+                </div>
+                
+            </div>
+        </div>
+        <img class="pokedex-img" alt="pokedex" style="display:block; margin: auto;"
+            src="../static/pokedex with text boxes3.png">
+    </div>
+</div>
+
+<div style="display: flex; justify-content: center;">
+    <button class="btn btn-light mt-3 mb-3 col-5" onclick="location.href='/'">Go Back</button>
+</div>
+{% endblock %}

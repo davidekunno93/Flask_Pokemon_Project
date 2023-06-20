@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<body style="background-image: url(../static/pokemon-team.jpg); background-repeat: no-repeat; background-position: top; background-size: 100% auto;">
+<h1></h1>
+<div class="register-div" style="height: 350px;">
+    <h2 class="center-text" style="margin: 20px 0px;">Sign In</h2>
+    <form method="POST">
+        <!-- hidden tag required (from secret_tag in config and .env) to authenticate form -->
+        {{ login_form.hidden_tag() }}
+        <div style="width: 400px; margin: auto;">
+            {{ login_form.entry(class='form-control mb-1', placeholder='Enter Email or Username') }}
+            {{ login_form.password(class='form-control mb-1', placeholder='Password') }}
+            <br>
+        </div>
+        <!-- submit buttons don;t take a placeholder, they take on the variable name in forms.py -->
+        <div class="two-buttons-vertical-div">
+            {{ login_form.login(class='btn btn-primary') }}
+        </div>
+    </form>
+    <p class="center-text" style="margin: 5px 0px 0px 0px;"><u>Don't have an account?</u></p>
+    <button class="btn btn-success" style="display: block; margin: auto; width:300px;" onclick="location.href='register'">Create an account</button>
+    
+</div>
+</body>
+
+{% endblock %}

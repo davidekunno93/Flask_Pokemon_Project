@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<body style="background-image: url(../static/simple\ pokeball\ background.png); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;">
+<h3 style="margin-top: 250px; text-align: center;">Choose a pokemon</h3>
+<div style="display: block; margin: auto; width: 50%;">
+    <form method="POST" class="col-5" style="display: block; margin: auto;">
+    {{ form.hidden_tag() }}
+        {{ form.pokemon(class='form-control', placeholder='Enter the name of a Pokemon') }}
+    </form>
+</div>
+</body>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="poketext" style="text-align: center; margin-top: 50px;">You caught {{ pokemon.name }}! </h1>
+
+<div class="pokemon-img" style="display: block; margin: auto;">
+    <img style="display: block; margin: auto;" src=" {{ pokemon.cartoon }} ">
+</div>
+
+<div style="display: flex; justify-content: center; margin-top: 10px;">
+    <button class="btn btn-light mt-3 mb-3 col-5" onclick="location.href='/dashboard'">Go Back</button>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,8 @@
+create and activate a venv
+create .env file using config.py file (FLASK_APP=app; FLASK_DEBUG=1; etc)
+terminal command pip install -r requirements.txt
+-- that's it!
+
+NOTES:
+images go in static folder or they won't render
+use terminal command 'flask run' to run the flask app
