@@ -98,3 +98,76 @@
 .row-rectangle {
     width: 100%;
 }
+
+table {
+    /* display: block; */
+    /* table-layout: fixed; */
+    font-family: arial, sans-serif;
+    /* border-collapse: collapse; */
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 50px;
+  }
+
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left; 
+    /* border-collapse: collapse; */
+    /* width: 100%; */
+    font-family: 'Press Start 2P';
+  }
+  
+  th { background-color: #212529; color: white;
+  }
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(odd) {
+    background-color: #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(odd) {
+    background-color: #dddddd;
+  }
+
+.bootbutton{
+    background-color: #0d6efd;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    padding: 6px;
+    font-size: 16px;
+    width: 300px;
+    height: 37.5px;
+    min-width: 50px;
+    transition-duration: 0.4s;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+  }
+
+#check{
+    float: right;
+  }
+
+.bootbutton:hover{
+    transition-duration: 0.4s;
+    background-color: #0A58CA;
+
+  }
+
+#battle-button {
+    width: 80%;
+    display: block;
+    margin: auto;
+    padding: 10px;
+  }
+
+/* #battle-button:hover {
+    font-size: xx-large;
+} */

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div style="width: 80%; margin: 50px auto;">
+    <h2 class="poketext">Battle Other Trainers!</h2>
+</div>
+
+
+
+{% for user in all_users %}
+{% if user.caught %}
+{% if user.id != current_user.id %}
+<div
+    style="display: flex; flex-direction: column; width: 80%; margin: auto; margin-bottom: 50px; border: 1px solid black;">
+    <div style="width: 100%; background-color: antiquewhite; padding: 0px 8px;">
+        <p class="poketext" style="font-size: large; float: left; margin-top: 15px;"> {{user.id}}{{user.name}}
+        </p>
+        <div style="display: flex; flex-direction: row; justify-content: space-between; width: 350px; float: right;">
+            {% for l in user.caught %}
+            <div>
+                <img style="display: inline-block;" src="../static/pokeball-small.png">
+            </div>
+            {% endfor %}
+
+            {% set empty = 5 - user.caught|length %}
+            {% for n in range(empty) %}
+            <img style="display: inline-block;" src="../static/pokeball-gray-small.png">
+            {% endfor %}
+
+        </div>
+    </div>
+    <div style="background-color:rgb(231, 216, 197);">
+        {% for c in user.caught %}
+        <img src="{{ c.sprite }}">
+        {% endfor %}
+    </div>
+    <div style="background-color: lightcoral; padding: 8px;">
+        <button class="btn btn-danger" onclick="location.href='/arena/{{user.id}}'"><strong> BATTLE </strong></button>
+        <button class="btn btn-light" onclick="location.href='/friend-request'"> Send Friend Request </button>
+    </div>
+</div>
+{% endif %}
+{% endif %}
+{% endfor %}
+
+
+
+{% endblock %}

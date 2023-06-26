@@ -1,6 +1,6 @@
 Base html   
     if current_user
-        nav bar = BRAND, home(here), pokedex, teams, battle .... 'user'(dropdown)>my account, my team, my battles, my friends | Logout
+        nav bar = BRAND, home/dashboard(here), pokedex, battle .... 'username'(dropdown)>my account, my team, my battles, #my friends | Logout
     else
         nav bar = BRAND
 
@@ -13,14 +13,16 @@ Index html
 
 Dashboard html (Home)
     body = (banner)random pokemon picture and stats
-            leaderboards showing WDL 
             my team
-            latest battle
+            #leaderboards showing WDL 
+            #latest battle
 
-Pokedex_search html (pokedex)
+search html (pokedex)
     Done 
 
-Teams html (teams)
+Battle html (users)
+each user
+'Battle' 'See pokemon'
 
 
 
@@ -64,3 +66,48 @@ Pokemon_pull banner
 </div>
 
 ***Second draft (col[name, picture]. col[row1[HP, attack, defense]2[first 2 moves, second 2 moves]3[catch button, search button]])
+<div class="big-rectangle-div" style="display: flex; flex-direction: row; border: 1px solid black; width: 80%; margin: auto; margin-top: 20px; min-width: 500px;">
+    <div class="img-box" style="flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <div class="row-rectangle" style="height: 9%;">
+            <p class="poketext" style="text-align: center;"> {{ pokemon.name }} </p>
+        </div>
+        <div class="row-rectangle" style="height: 89%;">
+            <span class="helper"></span><img class="v-line-img" src=" {{ pokemon.cartoon }} " style="margin: auto; max-height: 300px;">
+        </div>
+    </div>
+    <div class="stat-box" style="flex: 2; background-color: rgb(220, 220, 220); display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="h-box" style="height: 100px; display: flex; justify-content: space-evenly;">
+            <div class="sb-1" style="font-size: x-large;">
+                <p class="poketext" style="text-align: center;"> HP </p>
+                <p class="poketext" style="text-align: center; font-size: xx-large;"> {{ pokemon.stats.hp }} </p>
+            </div>
+            <div class="sb-1" style="font-size: x-large;">
+                <p class="poketext" style="text-align: center;"> ATT </p>
+                <p class="poketext" style="text-align: center; font-size: xx-large;"> {{ pokemon.stats.attack }} </p>
+            </div>
+            <div class="sb-1" style="font-size: x-large;">
+                <p class="poketext" style="text-align: center;"> DEF </p>
+                <p class="poketext" style="text-align: center; font-size: xx-large;"> {{ pokemon.stats.defense }} </p>
+            </div>
+        </div>
+        <div style="display: flex; flex-direction: rows;">
+            <div style="display: flex; flex-direction: column; justify-content: space-between; flex: 1; height: 100%;">
+                <p class="poketext" style="font-size: medium; text-align: center;">Moves:</p> 
+                {% for key, value in pokemon.moves1.items() %}
+                    <p class="poketext" style="font-size: medium; text-align: center;"> {{ key }} : {{ value }} </p>
+                {% endfor %}
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: space-between; flex: 1; height: 100%;">
+                <p class="poketext" style="font-size: medium; text-align: center;">&nbsp;</p> 
+                {% for key, value in pokemon.moves2.items() %}
+                    <p class="poketext" style="font-size: medium; text-align: center;"> {{ key }} : {{ value }} </p>
+                {% endfor %}
+            </div>
+        </div>
+        <div style="background-color: rgb(53, 51, 59); display: flex; flex-direction: row; justify-content:center; padding: 8px;">
+            <button class="btn btn-primary" onclick="location.href='#'" style="font-family: Arial, Helvetica, sans-serif; width: 40%; display: inline-block; margin: auto;">Catch Pokemon</button>
+            <button class="btn btn-light" onclick="location.href='search'" style="font-family: Arial, Helvetica, sans-serif; width: 40%; display: inline-block; margin: auto;">Search more Pokemon</button>
+        </div>
+    </div>
+
+</div>

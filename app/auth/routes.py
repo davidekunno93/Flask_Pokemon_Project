@@ -53,7 +53,7 @@ def login():
                 if user.password == password:
                     print("Logged in successfully")
                     login_user(user)
-                    return(redirect(url_for('search')))
+                    return(redirect(url_for('dashboard')))
                 else:
                     print("Wrong Password entered. Please try again")
             else:

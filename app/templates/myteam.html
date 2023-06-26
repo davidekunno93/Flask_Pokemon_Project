@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="pokemon-team"
+    style="margin: auto; margin-top: 20px; margin-bottom: 20px; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-evenly;">
+    {% for c in catches %}
+    <div class="team-box" style="display: flex; flex-direction: column; width: 280px; justify-content: space-between;">
+        <div class="team-box-name" style="flex: 1;">
+            <h2 class="poketext" style="text-align: center;"> {{ c.name }} </h2>
+        </div>
+
+        <div class="team-box-img" style="flex: 7;  text-align: center;">
+            <span class="helper"></span><img class="v-line-img" style="display: inline-block; max-width: 280px; max-height: 300px;" src=" {{ c.cartoon }} ">
+        </div>
+        <div class="stats" style="height: 60px; display: flex; flex-direction: row;">
+            <div class="points" style="flex: 1;">
+                <p class="poketext" style="text-align: right; margin-bottom: 10px;"> HP <br> <span style="font-size: x-large;"> {{ c.hp }} </span></p>
+            </div>
+            <div class="points" style="flex: 1;">
+                <p class="poketext" style="text-align: center; margin-bottom: 10px;"> ATT <br> <span style="font-size: x-large;"> {{ c.attack }} </span></p>
+            </div>
+            <div class="points" style="flex: 1;">
+                <p class="poketext" style="text-align: left; margin-bottom: 10px;"> DEF <br> <span style="font-size: x-large;"> {{ c.defense }} </span></p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <!-- <h2 class="poketext" style="text-align: center;"> {{ top.name }} </h2>
+<img style="display: block; margin: auto;" src=" {{ top.cartoon }} "> -->
+
+</div>
+
+<div class="my-team-pokeballs" style="width: 80%; margin:auto;">
+
+    <div style="float: left; max-width: 700px;">
+        <h2 class="poketext" style="margin-top: 20px;">{{current_user.name}}'s Team</h2>
+    </div>
+
+    <div class="pokeballs"
+        style="width: 400px; float: right; display: flex; flex-direction: row; justify-content: space-between;">
+        {% if catches %}
+        {% for c in range(num_catches) %}
+        <div class="pokeball">
+            <img src="../static/pokeball-small.png">
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% if empties %}
+        {% for e in range(empties) %}
+        <div class="pokeball-empty">
+            <img src="../static/pokeball-gray-small.png">
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+
+</div>
+
+<table>
+    <tr>
+        <th style='width: 15%;'>My Pokemon</th>
+        <th style='width: 25%;'>Name</th>
+        <th style='width: 12%;'>HP</th>
+        <th style='width: 12%;'>ATT</th>
+        <th style='width: 12%;'>DEF</th>
+        <th style='width: 14%;'>Release</th>
+    </tr>
+
+    {% if not catches %}
+    <tr>
+        <td>None</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    {% else %}
+    {% for c in catches %}
+    <tr>
+        <td> <img style="display: block; margin: auto;" src="{{ c.sprite }}"> </td>
+        <td> {{ c.name }} </td>
+        <td> {{ c.hp }} </td>
+        <td> {{ c.attack }} </td>
+        <td> {{ c.defense }} </td>
+        <td style="font-family: Arial;"> 
+            <form method="POST">
+                <button type="submit" name="{{c.name}}" value="{{c.name}}" class="btn btn-danger"
+                style="width: 100%; font-family: Arial, Helvetica, sans-serif; display: inline-block; margin: auto;"><strong>Release
+                    Pokemon</strong></button> 
+            </form>    
+        </td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+</table>
+
+</div>
+
+{% endblock %}

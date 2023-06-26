@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if battle.winner == "user" %}
+<div style="width: 80%; margin:auto; margin-top: 50px; background-color: #13c100;">
+    <h2 class="poketext" style="text-align: center; color: white;">BATTLE ARENA RESULTS!</h2>
+</div>
+{% elif battle.winner == "opponent" %}
+<div style="width: 80%; margin:auto; margin-top: 50px; background-color: #c10000;">
+    <h2 class="poketext" style="text-align: center; color: white;">BATTLE ARENA RESULTS!</h2>
+</div>
+{% endif %}
+
+<h3 class="poketext" style="text-align: center;">{{current_user.name}} vs {{opp.name}}</h3>
+
+<div class="pokemon-vs"
+    style="width: 80%; margin:auto; display: flex; flex-direction: row; justify-content: space-between;">
+    <div class="pokemons" style="flex: 1;">
+        {% for c in catches %}
+        <img src="{{c.sprite}}" style="display: block; margin: auto; height: 120px;">
+        {% endfor %}
+    </div>
+    <div class="vs" style="flex: 1; text-align: center; background-color:gainsboro;">
+
+        {% if battle.winner == 'user' %}
+        <span class="helper"></span>
+        <div style="width: 98%; display: inline-block; vertical-align: middle;">
+            
+            <p class="poketext"> You Won! </p>
+            <p class="poketext">You scored {{battle.difference}} more Damage Point(s) than {{opp.name}}!</p>
+            <p class="poketext">Each of your pokemon have gained {{battle.xp}} XP!</p>
+            
+        </div>
+        {% endif %}
+        {% if battle.winner == 'opponent' %}
+        <span class="helper"></span>
+        <div style="width: 98%; display: inline-block; vertical-align: middle;">
+            
+            <p class="poketext"> You Lost! </p>
+            <p class="poketext">{{opp.name}} scored {{battle.difference}} more Damage Point(s) than you!</p>
+            <p class="poketext">No XP gained</p>
+            
+        </div>
+        {% endif %}
+
+    </div>
+    <div class="pokemons" style="flex: 1;">
+        {% for c in opp.caught %}
+        <img src="{{c.sprite}}" style="display: block; margin: auto; height: 120px;">
+        {% endfor %}
+    </div>
+</div>
+
+
+    <!-- <button class="btn btn-danger" id="battle-button" style="font-size: x-large;"><strong> BATTLE </strong></button> -->
+
+
+<h2 class="poketext" style="text-align: center; margin-top: 20px;">Pokemon Battle X</h2>
+<div style="width: 80%; margin: auto; margin-bottom: 50px; border: 2px solid black; text-align: center; padding: 8px;">
+    <p class="poketext" style="max-width: 600px; display: inline-block;">Check 'My team' for updates on your pokemon xp levels (not yet implemented)</p>
+</div>
+
+
+{% endblock %}

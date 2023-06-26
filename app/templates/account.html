@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="width: 80%; margin: 50px auto;">
+    <h2 class="poketext">Account Settings</h2>
+</div>
+
+<table>
+    <tr>
+        <th colspan="3">My Account</th>
+    </tr>
+    <tr>
+        <td>Trainer Name:</td>
+        <td>{{current_user.name}}</td>
+        <td style="text-align: center;"><button style="font-family: Arial, Helvetica, sans-serif;" class="btn btn-primary">CHANGE</button></td>
+    </tr>
+    <tr>
+        <td>Username:</td>
+        <td>{{current_user.username}}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        <td>{{current_user.email}}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Password:</td>
+        <td>{{current_user.password}}</td>
+        <td style="text-align: center;"><button style="font-family: Arial, Helvetica, sans-serif;" class="btn btn-primary">CHANGE</button></td>
+    </tr>
+</table>
+
+
+
+
+{% endblock %}

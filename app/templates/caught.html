@@ -8,9 +8,18 @@
     <img style="display: block; margin: auto;" src=" {{ pokemon.cartoon }} ">
 </div>
 
-<div style="display: flex; justify-content: center; margin-top: 10px;">
-    <button class="btn btn-light mt-3 mb-3 col-5" onclick="location.href='/dashboard'">Go Back</button>
+<div style="display: flex; flex-direction: row; justify-content: center; margin-top: 10px;">
+
+    <div style="flex: 1; padding: 8px;">
+
+        <button class="btn btn-primary mt-3 mb-3 col-5" id="check" onclick="location.href='/myteam'"><strong>Go to My
+                Team</strong></button>
+    </div>
+    <div style="flex: 1; padding: 8px;">
+        <button class="btn btn-secondary mt-3 mb-3 col-5" onclick="location.href='/dashboard'">Go to Dashboard</button>
+    </div>
 </div>
+
 
 
 {% endblock %}
