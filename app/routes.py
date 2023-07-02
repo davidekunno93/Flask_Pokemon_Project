@@ -1,9 +1,9 @@
 # importing app to route different web directories
 from app import app
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for,flash
 from .auth.forms import PokeForm, CatchForm
 from .models import Team, User, CatchPokemon
-from .myfunctions import  Pokemon_data, pokemon_pull, addPokemon, Battle
+from .myfunctions import  Pokemon_data, pokemon_pull, addPokemon, Battle, check_pokemon
 from flask_login import current_user, login_user, logout_user, login_required
 
 # if url = localhost:5000/ call this function and return this
@@ -19,17 +19,6 @@ def search():
     if request.method == "POST":
         if form.validate():
             name = form.pokemon.data.lower()
-            # pokemon = CatchPokemon.query.filter_by(name=name)
-            # pokemon_id = pokemon.id
-
-            ### switch api pull to db pull!!!
-            # pokemon = Pokemon_data(name)
-            # pokemon_id = pokemon.id()
-
-            
-
-            # p_in_pokedex.clear()
-            # p_in_pokedex.append(pokemon)
 
             # return redirect(url_for("pokedex", pokemon=pokedex, p=pokemon))
             return redirect(url_for("pokedex", name=name))
@@ -47,8 +36,20 @@ def pokedex(name):
             return redirect(url_for('caught', pokemon_id=pokemon_id))
         elif "release" in request.form:
             return redirect(url_for('release', pokemon_id=pokemon_id))
-    pokemon = Pokemon_data(name)
-    pokemon_id = pokemon.id()
+    if check_pokemon(name) == False:
+        flash("pokemon was not found. Check your spelling or try a different pokemon.", "warning")
+        return redirect(url_for('search'))
+
+    # searched pokemon name passed thru into pokedex
+    # query pokemon table for the name passed thru
+    pokemon = CatchPokemon.query.filter_by(name=name.title()).first()
+    # if name not in table - addpokemon from API to CatchPokemon table
+    if not pokemon:
+        addPokemon([name])
+        print(f"{name.title()} added to the database")    
+    pokemon = CatchPokemon.query.filter_by(name=name.title()).first()    
+    pokemon_id = pokemon.id
+    pokemon = Pokemon_data(name)  
     poke = pokemon.pokedex()
     # flagging pokemon user already has
     my_catches = current_user.caught
@@ -83,20 +84,6 @@ def dashboard():
             pokemon_id = rotation[0]["id"]
             return redirect(url_for('caught', pokemon_id=pokemon_id)) 
 
-            ## first method for catching pokemon
-            catch = CatchPokemon.query.filter_by(name=rotation[0]["name"]).first()
-            my_catches = current_user.caught
-            print(my_catches)
-            print(catch)
-            if len(my_catches) > 5:
-                print("Your Pokemon Team is full!")
-            else:
-                if catch in my_catches:
-                    print("You have already caught this Pokemon!")
-                else:
-                    catch.catch_it(current_user)
-                    print(f"You caught {rotation[0]['name']}!")
-                    return redirect(url_for('caught'))
         elif "release" in request.form:
             print("Release the pokemon!")
             pokemon_id = rotation[0]["id"]
@@ -104,7 +91,14 @@ def dashboard():
     
     # if GET request - pokemon_pull selects random pokemon name of the first 151 for pokemon banner
     name = pokemon_pull()
-    # name = "staryu"
+    
+    pokemon = CatchPokemon.query.filter_by(name=name.title()).first()
+    # if name not in table - addpokemon from API to CatchPokemon table
+    if not pokemon:
+        addPokemon([name])
+        print(f"{name.title()} added to the database")    
+    pokemon_id = pokemon.id
+
     pokemon = Pokemon_data(name)
     pokedex = pokemon.pokedex()
     rotation.append(pokedex)
@@ -123,10 +117,10 @@ def dashboard():
     my_team = set()
     for c in my_catches:
         my_team.add(c.id)
-    if pokemon.id() in my_team:
+    if pokemon_id in my_team:
         pokemon.flagged = "dash block: You already have this pokemon"
     print(my_team)
-    print(pokemon.id())
+    print(pokemon_id)
     
     return render_template("dashboard.html", pokemon=pokedex, num_catches=num_catches, catches=my_catches, empties=empties, p=pokemon)
 
@@ -159,9 +153,11 @@ def team():
 def caught(pokemon_id):
     # check works
     if len(current_user.caught) == 5:
-        print("caught block: You've reached maximum pokemon limit. Release a pokemon to add more")
-        return redirect(url_for('dashboard'))
+        flash("you've reached the maximum number of pokemon. Release a pokemon to add more.", "warning")
+        
+        return redirect(url_for('team'))
     else:
+
         catch = CatchPokemon.query.get(pokemon_id)
 
         # check already team may not be needed since catch button is conditionally rendered
@@ -170,10 +166,12 @@ def caught(pokemon_id):
         for c in my_catches:
             my_team.add(c.id)
         if pokemon_id in my_team:
-            print("caught block: You've already caught this pokemon")
+            flash("you've already caught this pokemon.", "warning")
+            
             return redirect(url_for('dashboard'))
         
-        print("caught block: We are going to catch this pokemon")
+        flash("You caught a new pokemon!", "success")
+        
         catch.catch_it(current_user)
         return render_template('caught.html', pokemon=catch)
 
@@ -187,6 +185,9 @@ def release(pokemon_id):
 
 @app.route('/battle', methods=["GET", "POST"])
 def battle():
+    if len(current_user.caught) < 5:
+        flash("you must collect 5 pokemon before you can battle.", "warning")
+        return redirect(url_for('dashboard'))
     users = User.query.all()
     return render_template('battle.html', all_users=users)
 
@@ -241,9 +242,14 @@ def arena_results(user_id):
     print(battle.run())
     if battle.winner == "user":
         print("User wins")
+        current_user.won()
+        opponent.lost()
+        flash("You won the battle! See below for XP gained.", "success")
     elif battle.winner == "opponent":
         print("opponent wins")
-    
+        current_user.lost()
+        opponent.won()
+        flash("you're opponent won the battle. Train your pokemon and try again.", "warning")
     return render_template('arena-results.html', catches=my_catches, opp=opponent, battle=battle)
 
 @app.route('/friend-request')

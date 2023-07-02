@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="mystandings flx-r just-se" style="margin-top: 20px;">
+    <div class="stat poketext center-text">
+        <p class="x-large">WINS</p>
+        <p>{{wins}}</p>
+    </div>
+    <div class="stat poketext center-text">
+        <p class="x-large">LOSSES</p>
+        <p>{{losses}}</p>
+    </div>
+    <div class="stat poketext center-text">
+        <p class="x-large">W/L RATIO</p>
+        <p>{{ratio}}</p>
+    </div>
+
+</div>
+
+{% endblock %}

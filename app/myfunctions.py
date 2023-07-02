@@ -182,6 +182,9 @@ def pokemon_pull():
     
 
 def addPokemon(arr):
+    """
+    Takes in list object - loops through all pokemon names in list and adds to the CatchPokemon table
+    """
     for name in arr:
         pokemon = Pokemon_data(name)
         p = pokemon.pokedex()
@@ -271,3 +274,10 @@ class Battle():
 #     else:
 #         dp_dict["winner"] = team2["name"]
 #     return dp_dict
+
+def check_pokemon(pokemon_name):
+    response= requests.get(f"https://pokeapi.co/api/v2/pokemon/{pokemon_name.lower()}/")
+    if response.ok:
+        return True
+    return False
+

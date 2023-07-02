@@ -10,31 +10,117 @@
 <div class="pokemon-vs"
     style="width: 80%; margin:auto; display: flex; flex-direction: row; justify-content: space-between;">
     <div class="pokemons" style="flex: 1;">
+
         {% for c in catches %}
-        <img src="{{c.sprite}}" style="display: block; margin: auto; height: 120px;">
-        {% endfor %}
-    </div>
-    <div class="vs" style="flex: 1; text-align: center; background-color:gainsboro;">
-        <span class="helper"></span>
-        <div style="width: 98%; display: inline-block; vertical-align: middle;">
-            <button class="btn btn-danger" id="battle-button" style="font-size: x-large;" onclick="location.href='/arena-results/{{opp.id}}'"><strong> START BATTLE! </strong></button>
+        {% if c.hp + c.attack + c.defense >= 300 %}
+            <div class="pokecard flx-r" style="border: 1px solid black; margin: 4px;">
+                <div class="img-box flx1">
+                    <img src="{{c.sprite}}" style="display: block; margin: auto; height: 120px;">
+                </div>
+                <div class="stats-box flx2 flx-r just-se" style="background-color: rgb(215, 0, 0);">
+                    <div class="hp poketext center-text wh">
+                        <p class="small" style="margin-top: 30px; margin-bottom: 5px;">HP</p>
+                        <p class="large">{{c.hp}}</p>
+                    </div>
+                    <div class="att poketext center-text wh">
+                        <p class="small" style="margin-top: 30px; margin-bottom: 5px;">ATT</p>
+                        <p class="large">{{c.attack}}</p>
+                    </div>
+                    <div class="def poketext center-text wh">
+                        <p class="small" style="margin-top: 30px; margin-bottom: 5px;">DEF</p>
+                        <p class="large">{{c.defense}}</p>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="pokecard flx-r" style="border: 1px solid black; margin: 4px;">
+                <div class="img-box flx1">
+                    <img src="{{c.sprite}}" style="display: block; margin: auto; height: 120px;">
+                </div>
+                <div class="stats-box flx2 flx-r just-se" style="background-color: gainsboro;">
+                    <div class="hp poketext center-text">
+                        <p class="small" style="margin-top: 30px; margin-bottom: 5px;">HP</p>
+                        <p class="large">{{c.hp}}</p>
+                    </div>
+                    <div class="att poketext center-text">
+                        <p class="small" style="margin-top: 30px; margin-bottom: 5px;">ATT</p>
+                        <p class="large">{{c.attack}}</p>
+                    </div>
+                    <div class="def poketext center-text">
+                        <p class="small" style="margin-top: 30px; margin-bottom: 5px;">DEF</p>
+                        <p class="large">{{c.defense}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+        <div class="vs" style="flex: 1; text-align: center; background-color:gainsboro;">
+            <span class="helper"></span>
+            <div style="width: 98%; display: inline-block; vertical-align: middle;">
+                <button class="btn btn-danger" id="battle-button" style="font-size: x-large;"
+                    onclick="location.href='/arena-results/{{opp.id}}'"><strong> START BATTLE! </strong></button>
+            </div>
+        </div>
+        <div class="pokemons" style="flex: 1;">
+            {% for c in opp.caught %}
+            {% if c.hp + c.attack + c.defense >= 300 %}
+            <div class="pokecard flx-r" style="border: 1px solid black; margin: 4px;">
+                <div class="stats-box flx2 flx-r just-se" style="background-color: rgb(215, 0, 0);">
+                    <div class="hp poketext center-text wh">
+                        <p class="small" style="margin-top: 30px; margin-bottom: 5px;">HP</p>
+                        <p class="large">{{c.hp}}</p>
+                    </div>
+                    <div class="att poketext center-text wh">
+                        <p class="small" style="margin-top: 30px; margin-bottom: 5px;">ATT</p>
+                        <p class="large">{{c.attack}}</p>
+                    </div>
+                    <div class="def poketext center-text wh">
+                        <p class="small" style="margin-top: 30px; margin-bottom: 5px;">DEF</p>
+                        <p class="large">{{c.defense}}</p>
+                    </div>
+                </div>
+                <div class="img-box flx1">
+                    <img src="{{c.sprite}}" style="display: block; margin: auto; height: 120px;">
+                </div>
+            </div>
+            {% else %}
+            <div class="pokecard flx-r" style="border: 1px solid black; margin: 4px;">
+                <div class="stats-box flx2 flx-r just-se" style="background-color: gainsboro;">
+                    <div class="hp poketext center-text">
+                        <p class="small" style="margin-top: 30px; margin-bottom: 5px;">HP</p>
+                        <p class="large">{{c.hp}}</p>
+                    </div>
+                    <div class="att poketext center-text">
+                        <p class="small" style="margin-top: 30px; margin-bottom: 5px;">ATT</p>
+                        <p class="large">{{c.attack}}</p>
+                    </div>
+                    <div class="def poketext center-text">
+                        <p class="small" style="margin-top: 30px; margin-bottom: 5px;">DEF</p>
+                        <p class="large">{{c.defense}}</p>
+                    </div>
+                </div>
+                <div class="img-box flx1">
+                    <img src="{{c.sprite}}" style="display: block; margin: auto; height: 120px;">
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
         </div>
     </div>
-    <div class="pokemons" style="flex: 1;">
-        {% for c in opp.caught %}
-        <img src="{{c.sprite}}" style="display: block; margin: auto; height: 120px;">
-        {% endfor %}
-    </div>
-</div>
 
 
     <!-- <button class="btn btn-danger" id="battle-button" style="font-size: x-large;"><strong> BATTLE </strong></button> -->
 
 
-<h2 class="poketext" style="text-align: center; margin-top: 20px;">Pokemon Battle X</h2>
-<div style="width: 80%; margin: auto; margin-bottom: 50px; border: 2px solid black; text-align: center; padding: 8px;">
-    <p class="poketext" style="max-width: 600px; display: inline-block;">Press the START BATTLE button to challenge your opponent and see the results of your battle!</p>
-</div>
+    <h2 class="poketext" style="text-align: center; margin-top: 20px;">Pokemon Battle X</h2>
+    <div
+        style="width: 80%; margin: auto; margin-bottom: 50px; border: 2px solid black; text-align: center; padding: 8px;">
+        <p class="poketext" style="max-width: 600px; display: inline-block;">Press the START BATTLE button to challenge
+            your
+            opponent and see the results of your battle!</p>
+    </div>
 
 
-{% endblock %}
+    {% endblock %}

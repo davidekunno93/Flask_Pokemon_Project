@@ -171,3 +171,46 @@ td, th {
 /* #battle-button:hover {
     font-size: xx-large;
 } */
+
+#small{
+    width: 40px;
+}
+
+.flx-r{
+    display: flex;
+    flex-direction: row;
+}
+
+.flx-c{
+    display: flex;
+    flex-direction: column;
+}
+
+.flx1{
+    flex: 1;
+}
+
+.flx2{
+    flex: 2;
+}
+
+.just-se{
+    justify-content: space-evenly;
+}
+
+.small{
+    font-size: small;
+}
+.large{
+    font-size: large;
+}
+.x-large{
+    font-size: x-large;
+}
+.xx-large{
+    font-size: xx-large;
+}
+
+.wh{
+    color: white;
+}

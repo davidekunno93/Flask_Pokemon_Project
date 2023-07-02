@@ -17,16 +17,48 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
     team = db.relationship('Team', backref='author', lazy=True)
+    wins = db.Column(db.Integer)
+    losses = db.Column(db.Integer)
 
-    def __init__(self, name, u_name, email, pw):
+    def __init__(self, name, u_name, email, pw, wins=0, losses=0):
         self.name = name
         self.username = u_name
         self.email = email
         self.password = pw
+        self.wins = wins
+        self.losses = losses
 
     def save_user(self):
         db.session.add(self)
         db.session.commit()
+    
+    def battle_won(self, user):
+        self.won.append(user)
+        db.session.commit()
+
+    def won(self):
+        if not self.wins:
+            self.wins = 1
+            db.session.commit()
+        else:
+            self.wins += 1
+            db.session.commit()
+        
+    def lost(self):
+        if not self.losses:
+            self.losses = 1
+            db.session.commit()
+        else:
+            self.losses += 1
+            db.session.commit()
+
+    # not being used
+    class MyPokemon():
+        id = db.Column(db.Integer, primary_key=True)
+        pokemon = db.Column(db.String, nullable=False, unique=True)
+        battles = db.Column(db.Integer)
+        xp = db.Column(db.Integer)
+
 
 class Team(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -45,7 +77,7 @@ class Team(db.Model):
 class CatchPokemon(db.Model):
     __tablename__ = 'caught_pokemon'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable=False, unique=True)
     hp = db.Column(db.Integer, nullable=False)
     attack = db.Column(db.Integer, nullable=False)
     defense = db.Column(db.Integer, nullable=False)
@@ -86,6 +118,7 @@ catches = db.Table(
     db.Column('catchpokemon_id', db.Integer, db.ForeignKey('caught_pokemon.id'), nullable=False),
     db.Column('time_caught', db.DateTime, default=datetime.datetime.now()),
     )
+
 
 
 

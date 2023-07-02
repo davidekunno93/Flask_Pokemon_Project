@@ -5,17 +5,19 @@
 
 <div style="width: 80%; margin: 50px auto;">
     <h2 class="poketext">Battle Other Trainers!</h2>
+    <h6 class="poketext">*You can only battle trainers with 5 pokemon collected*</h6>
 </div>
 
 
 
 {% for user in all_users %}
 {% if user.caught %}
+{% if user.caught|length == 5 %}
 {% if user.id != current_user.id %}
 <div
     style="display: flex; flex-direction: column; width: 80%; margin: auto; margin-bottom: 50px; border: 1px solid black;">
     <div style="width: 100%; background-color: antiquewhite; padding: 0px 8px;">
-        <p class="poketext" style="font-size: large; float: left; margin-top: 15px;"> {{user.id}}{{user.name}}
+        <p class="poketext" style="font-size: large; float: left; margin-top: 15px;"> {{user.name}}
         </p>
         <div style="display: flex; flex-direction: row; justify-content: space-between; width: 350px; float: right;">
             {% for l in user.caught %}
@@ -41,6 +43,7 @@
         <button class="btn btn-light" onclick="location.href='/friend-request'"> Send Friend Request </button>
     </div>
 </div>
+{% endif %}
 {% endif %}
 {% endif %}
 {% endfor %}

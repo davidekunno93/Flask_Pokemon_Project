@@ -24,9 +24,13 @@ from . import routes
 
 
 
-# new directory for organization
+# new directory for organization (auth)
 from .auth.routes import auth
 app.register_blueprint(auth)
+
+# new directory for organization (my)
+from .my.routes import my
+app.register_blueprint(my)
 
 #database stuff
 from .models import db
