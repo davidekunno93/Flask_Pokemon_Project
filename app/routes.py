@@ -2,9 +2,11 @@
 from app import app
 from flask import render_template, request, redirect, url_for,flash
 from .auth.forms import PokeForm, CatchForm
-from .models import Team, User, CatchPokemon
+from .models import Team, User, CatchPokemon, catches
 from .myfunctions import  Pokemon_data, pokemon_pull, addPokemon, Battle, check_pokemon
 from flask_login import current_user, login_user, logout_user, login_required
+from sqlalchemy import select, create_engine
+from flask_sqlalchemy import SQLAlchemy
 
 # if url = localhost:5000/ call this function and return this
 @app.route('/')
@@ -135,10 +137,17 @@ def team():
                 return redirect(url_for('release', pokemon_id=pokemon_id))
     # my_catches is all caught pokemon objects
         # getting number of caught pokemon and number of empty slots
+    if not current_user.caught:
+        return render_template("myteam.html")
     my_catches = current_user.caught
     num_catches = len(my_catches)
     empties = 5 - num_catches
     top_catch = my_catches[0]
+    # print(catches.columns.time_caught)
+    # qry = (select(catches.c.time_caught).where(catches.c.user_id == current_user.id))
+    # with engine.connect() as conn:
+    #     for row in conn.execute(qry):
+    #         print(f"{row}")
 
     return render_template("myteam.html", num_catches=num_catches, catches=my_catches, empties=empties, top=top_catch)
 
@@ -259,3 +268,4 @@ def friend_request():
 @app.route('/friends')
 def friends():
     return "Friends page not yet done"
+

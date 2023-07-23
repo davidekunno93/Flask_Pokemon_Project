@@ -2,6 +2,7 @@
 
 {% block content %}
 
+{% if catches %}
 <div class="pokemon-team"
     style="margin: auto; margin-top: 20px; margin-bottom: 20px; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-evenly;">
     {% for c in catches %}
@@ -11,17 +12,21 @@
         </div>
 
         <div class="team-box-img" style="flex: 7;  text-align: center;">
-            <span class="helper"></span><img class="v-line-img" style="display: inline-block; max-width: 280px; max-height: 300px;" src=" {{ c.cartoon }} ">
+            <span class="helper"></span><img class="v-line-img"
+                style="display: inline-block; max-width: 280px; max-height: 300px;" src=" {{ c.cartoon }} ">
         </div>
         <div class="stats" style="height: 60px; display: flex; flex-direction: row;">
             <div class="points" style="flex: 1;">
-                <p class="poketext" style="text-align: right; margin-bottom: 10px;"> HP <br> <span style="font-size: x-large;"> {{ c.hp }} </span></p>
+                <p class="poketext" style="text-align: right; margin-bottom: 10px;"> HP <br> <span
+                        style="font-size: x-large;"> {{ c.hp }} </span></p>
             </div>
             <div class="points" style="flex: 1;">
-                <p class="poketext" style="text-align: center; margin-bottom: 10px;"> ATT <br> <span style="font-size: x-large;"> {{ c.attack }} </span></p>
+                <p class="poketext" style="text-align: center; margin-bottom: 10px;"> ATT <br> <span
+                        style="font-size: x-large;"> {{ c.attack }} </span></p>
             </div>
             <div class="points" style="flex: 1;">
-                <p class="poketext" style="text-align: left; margin-bottom: 10px;"> DEF <br> <span style="font-size: x-large;"> {{ c.defense }} </span></p>
+                <p class="poketext" style="text-align: left; margin-bottom: 10px;"> DEF <br> <span
+                        style="font-size: x-large;"> {{ c.defense }} </span></p>
             </div>
         </div>
     </div>
@@ -85,12 +90,12 @@
         <td> {{ c.hp }} </td>
         <td> {{ c.attack }} </td>
         <td> {{ c.defense }} </td>
-        <td style="font-family: Arial;"> 
+        <td style="font-family: Arial;">
             <form method="POST">
                 <button type="submit" name="{{c.name}}" value="{{c.name}}" class="btn btn-danger"
-                style="width: 100%; font-family: Arial, Helvetica, sans-serif; display: inline-block; margin: auto;"><strong>Release
-                    Pokemon</strong></button> 
-            </form>    
+                    style="width: 100%; font-family: Arial, Helvetica, sans-serif; display: inline-block; margin: auto;"><strong>Release
+                        Pokemon</strong></button>
+            </form>
         </td>
     </tr>
     {% endfor %}
@@ -98,5 +103,16 @@
 </table>
 
 </div>
+{% else %}
+<div class="alert mt-5 center-img eighty">
+    <h3 class="poketext center-text">
+        There are no Pokemon in your team yet. <br>
+        Navigate to the 'Pokedex' and catch
+        some!
+    </h3>
+    <button class="btn btn-primary mt-4 center-img" onclick="location.href='/search'">Go to Pokedex</button>
+</div>
+{% endif %}
+
 
 {% endblock %}

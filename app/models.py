@@ -2,9 +2,12 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
-import datetime
+from datetime import datetime
+from sqlalchemy import create_engine
 
 db = SQLAlchemy()
+
+# engine = create_engine("postgresql+psycopg2://hhtgxzlm:HBfq4QOLmBw5FoWCC_EXvPVFsyH_UGOH@localhost:5000/Pokemon_AWS")
 
 # creating databases
 
@@ -64,13 +67,22 @@ class Team(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     pokemon = db.Column(db.String, unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    time_caught = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
+
+    # 1  cloyster 2 8:38am
+    # 2  zapdos   2 8:40am
+    # put cols on User object for diff pokemon with time caught stamps...
 
     def __init__(self, pokemon, user_id):
         self.pokemon = pokemon
         self.user_id = user_id
-    
-    def catch_pokemon(self):
+
+    def catch_time(self):
         db.session.add(self)
+        db.session.commit()
+    
+    def release(self):
+        db.session.remove(self)
         db.session.commit()
 
 # pokemon database
@@ -83,11 +95,14 @@ class CatchPokemon(db.Model):
     defense = db.Column(db.Integer, nullable=False)
     sprite = db.Column(db.String, nullable=False)
     cartoon = db.Column(db.String, nullable=False)
+    # time_caught = db.Column(db.DateTime)
     caught = db.relationship('User',
             secondary = 'catches',
             backref = 'caught',
             lazy = 'dynamic'
             )
+    
+    
 
     def __init__(self, name, hp, attack, defense, sprite, cartoon):
         self.name = name
@@ -116,7 +131,7 @@ catches = db.Table(
     'catches',
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), nullable=False),
     db.Column('catchpokemon_id', db.Integer, db.ForeignKey('caught_pokemon.id'), nullable=False),
-    db.Column('time_caught', db.DateTime, default=datetime.datetime.now()),
+    db.Column('time_caught', db.DateTime, default=datetime.now()),
     )
 
 

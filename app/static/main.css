@@ -20,7 +20,27 @@
     margin-top: 50px;
     background-color: white;
 }
-
+.mt-1{
+    margin-top: 5px;
+}
+.mt-2{
+    margin-top: 10px;
+}
+.mt-3{
+    margin-top: 15px;
+}
+.mt-4{
+    margin-top: 25px;
+}
+.mt-5{
+    margin-top: 50px;
+}
+.fifty{
+    width: 50%;
+}
+.eighty{
+    width: 80%;
+}
 .two-buttons-div{
     display: flex;
     flex-direction: row;
@@ -37,6 +57,7 @@
 .text-button{
     color: grey;
     text-decoration: none;
+    transition-duration: 0.2s;
 }
 
 .text-button:hover{
