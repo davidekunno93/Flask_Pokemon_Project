@@ -23,3 +23,7 @@ class LoginForm(FlaskForm):
 
 class CatchForm(FlaskForm):
     catch = SubmitField()
+
+class ChangeForm(FlaskForm):
+    entry = StringField("Entry", validators=[DataRequired()])
+    submit = SubmitField()

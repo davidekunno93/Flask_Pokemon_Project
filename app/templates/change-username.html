@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<form class="mt-5" method="POST">
+    <!-- hidden tag required (from secret_tag in config and .env) to authenticate form -->
+    {{ change_form.hidden_tag() }}
+    <div style="width: 400px; margin: auto;">
+        {{ change_form.entry(class='form-control mb-1', placeholder='Enter Your New Username') }}
+        <br>
+    </div>
+    <!-- submit buttons don;t take a placeholder, they take on the variable name in forms.py -->
+    <div class="two-buttons-vertical-div">
+        {{ change_form.submit(class='btn btn-primary') }}
+    </div>
+</form>
+
+
+
+{% endblock %}

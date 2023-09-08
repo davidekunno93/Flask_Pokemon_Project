@@ -13,12 +13,12 @@
     <tr>
         <td>Trainer Name:</td>
         <td>{{current_user.name}}</td>
-        <td style="text-align: center;"><button style="font-family: Arial, Helvetica, sans-serif;" class="btn btn-primary">CHANGE</button></td>
+        <td style="text-align: center;"><button style="font-family: Arial, Helvetica, sans-serif;" class="btn btn-primary" onclick="location.href='/change-name'">CHANGE</button></td>
     </tr>
     <tr>
         <td>Username:</td>
         <td>{{current_user.username}}</td>
-        <td></td>
+        <td style="text-align: center;"><button style="font-family: Arial, Helvetica, sans-serif;" class="btn btn-primary" onclick="location.href='/change-username'">CHANGE</button></td>
     </tr>
     <tr>
         <td>Email:</td>
@@ -28,7 +28,7 @@
     <tr>
         <td>Password:</td>
         <td>{{current_user.password}}</td>
-        <td style="text-align: center;"><button style="font-family: Arial, Helvetica, sans-serif;" class="btn btn-primary">CHANGE</button></td>
+        <td style="text-align: center;"><button style="font-family: Arial, Helvetica, sans-serif;" class="btn btn-primary" onclick="location.href='/change-password'">CHANGE</button></td>
     </tr>
 </table>
 

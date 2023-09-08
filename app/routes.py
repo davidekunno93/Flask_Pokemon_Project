@@ -2,11 +2,12 @@
 from app import app
 from flask import render_template, request, redirect, url_for,flash
 from .auth.forms import PokeForm, CatchForm
-from .models import Team, User, CatchPokemon, catches
+from .models import Team, User, CatchPokemon, catches, db
 from .myfunctions import  Pokemon_data, pokemon_pull, addPokemon, Battle, check_pokemon
 from flask_login import current_user, login_user, logout_user, login_required
 from sqlalchemy import select, create_engine
 from flask_sqlalchemy import SQLAlchemy
+from .auth.forms import ChangeForm
 
 # if url = localhost:5000/ call this function and return this
 @app.route('/')
@@ -268,4 +269,49 @@ def friend_request():
 @app.route('/friends')
 def friends():
     return "Friends page not yet done"
+
+@app.route('/change-username', methods=["GET","POST"])
+def change_username():
+    form = ChangeForm()
+    if request.method == "POST":
+        if form.validate:
+            new_username = form.entry.data
+            print(new_username)
+            user = User.query.filter_by(username=current_user.username).first()
+            print(user.username)
+            user.username = new_username
+            db.session.commit()
+            print(user.username)
+            flash("Information changed successfully!", "success")
+    return render_template('change-username.html', change_form=form)
+
+@app.route('/change-name', methods=["GET","POST"])
+def change_name():
+    form = ChangeForm()
+    if request.method == "POST":
+        if form.validate:
+            new_name = form.entry.data
+            print(new_name)
+            user = User.query.filter_by(username=current_user.username).first()
+            print(user.name)
+            user.name = new_name
+            db.session.commit()
+            print(user.name)
+            flash("Information changed successfully!", "success")
+    return render_template('change-name.html', change_form=form)
+
+@app.route('/change-password', methods=["GET","POST"])
+def change_password():
+    form = ChangeForm()
+    if request.method == "POST":
+        if form.validate:
+            new_password = form.entry.data
+            print(new_password)
+            user = User.query.filter_by(username=current_user.username).first()
+            print(user.password)
+            user.password = new_password
+            db.session.commit()
+            print(user.password)
+            flash("Information changed successfully!", "success")
+    return render_template('change-password.html', change_form=form)
 
