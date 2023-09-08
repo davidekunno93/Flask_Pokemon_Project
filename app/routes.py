@@ -100,6 +100,7 @@ def dashboard():
     if not pokemon:
         addPokemon([name])
         print(f"{name.title()} added to the database")    
+    pokemon = CatchPokemon.query.filter_by(name=name.title()).first()
     pokemon_id = pokemon.id
 
     pokemon = Pokemon_data(name)
